@@ -1,0 +1,9 @@
+.form_div{
+	margin-bottom: 20px;
+	position: relative;      
+}
+.btn_sent{
+	margin-top: 10px;
+	position:absolute;  
+ 	bottom: 0px;              
+}
