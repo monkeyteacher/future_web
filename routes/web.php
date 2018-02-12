@@ -14,3 +14,13 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('test/{StoreID?}',[
+    'as'=>'test',
+    'uses'=>'MainHomeController@test'
+]);
+
+Route::get('MainHome/{CourseID?}/{StoreID?}',[
+    'as'=>'MainHome',
+    'uses'=>'MainHomeController@index'
+]);
