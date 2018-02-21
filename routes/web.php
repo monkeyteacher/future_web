@@ -12,15 +12,25 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('KnowledgeAnalysis');
 });
 
-Route::get('test/{StoreID?}',[
+Route::get('test/{KnowID?}',[
     'as'=>'test',
-    'uses'=>'MainHomeController@test'
+    'uses'=>'KnowledgeAnalysisController@test'
 ]);
 
 Route::get('MainHome/{CourseID?}/{StoreID?}',[
     'as'=>'MainHome',
     'uses'=>'MainHomeController@index'
+]);
+
+Route::get('KnowledgeAnalysis/{KnowID?}',[
+    'as'=>'KnowledgeAnalysis',
+    'uses'=>'KnowledgeAnalysisController@index'
+]);
+
+Route::post('postKnowledgeData',[
+    'as'=>'postKnowledgeData',
+    'uses'=>'KnowledgeAnalysisController@postKnowledgeData'    
 ]);
