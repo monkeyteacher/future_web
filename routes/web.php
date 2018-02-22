@@ -30,7 +30,19 @@ Route::get('KnowledgeAnalysis/{KnowID?}',[
     'uses'=>'KnowledgeAnalysisController@index'
 ]);
 
+Route::get('getStudentData/{KnowID?}/{MemberID?}',[
+    'as'=>'getStudentData',
+    'uses'=>'KnowledgeAnalysisController@getStudentData'    
+]);
+
+Route::get('getExamsData/{KnowID?}/{MemberID?}/{Round?}',[
+    'as'=>'getExamsData',
+    'uses'=>'KnowledgeAnalysisController@getExamsData'    
+]);
+
 Route::post('postKnowledgeData',[
     'as'=>'postKnowledgeData',
     'uses'=>'KnowledgeAnalysisController@postKnowledgeData'    
 ]);
+
+

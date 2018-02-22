@@ -16,7 +16,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">分頁 <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="{{ route('MainHome') }}">課程分析</a></li>
-                        <li><a href="page2.html">知識點分析</a></li>
+                        <li><a href="{{ route('KnowledgeAnalysis') }}">知識點分析</a></li>
                         <li><a href="page3.html">基本素養分析</a></li>
                     </ul>
                 </li>

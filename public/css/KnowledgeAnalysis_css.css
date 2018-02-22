@@ -7,3 +7,9 @@
 	position:absolute;  
  	bottom: 0px;              
 }
+.ExamDataMessage{
+	display: block;
+	opacity: 1;
+	overflow: visible;
+}
+ 

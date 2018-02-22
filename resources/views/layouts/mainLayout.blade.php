@@ -9,6 +9,7 @@
     <link href="{{ asset('css/basic_css.css') }}" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/Chart.js') }}"></script>
     @section('head_area')
         @yield('head_area')
     @show
