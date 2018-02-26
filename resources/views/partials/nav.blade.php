@@ -17,7 +17,7 @@
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="{{ route('MainHome') }}">課程分析</a></li>
                         <li><a href="{{ route('KnowledgeAnalysis') }}">知識點分析</a></li>
-                        <li><a href="page3.html">基本素養分析</a></li>
+                        <li><a href="{{ route('BaseQualitiesAnalysis') }}">基本素養分析</a></li>
                     </ul>
                 </li>
             </ul>
