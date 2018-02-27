@@ -14,17 +14,19 @@ class BaseQualitiesAnalysisContorller extends Controller
         $this->BQAD = $BQAD;
     }
 
-    public function index($AbilityData = null){
+    public function index(){
         $BaseQualitiesData = $this->BQAD->getBaseQualitiesData();
-        //return $AbilityData;
-        //return $BaseQualitiesData;
-        //$data = array('BaseQualitiesData'=>$BaseQualitiesData);
-        return view('BaseQualitiesAnalysis',['data'=>$BaseQualitiesData,'AbilityData'=>$AbilityData]);
+        return view('BaseQualitiesAnalysis',['data'=>$BaseQualitiesData]);
     }
 
-    public function getAbilityData($AbilityID){
+    public function getBaseQulitiesChart(){
+        $BaseQualitiesChartData = $this->BQAD->getBaseQulitiesChart();
+        return $BaseQualitiesChartData;
+    }
+
+    public function getAbilityData(Request $Request){
+        $AbilityID = $Request->input('AbilityID');
         $AbilityData = $this->BQAD->getAbilityData($AbilityID);
-        //return $AbilityData;
-        return $this->index($AbilityData);
+        return $AbilityData;
     }
 }

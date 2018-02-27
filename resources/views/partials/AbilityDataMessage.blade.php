@@ -9,20 +9,18 @@
             <div class="modal-body">
                 <table class="table table-bordered">
                     <tr>
-                        <tr>
-                            <th class='text-center' colspan='5'>題目</th>
-                            <th class='text-center' colspan='1'>第一次回答正確比率</th>
-                            <th class='text-center' colspan='1'>回答正確率</th>
-                        </tr>
+                        <th class='text-center' colspan='5'>題目</th>
+                        <th class='text-center' colspan='1'>第一次回答正確比率</th>
+                        <th class='text-center' colspan='1'>回答正確率</th>
                     </tr>
                     <tbody id="ExamHistory">
-                        @for($i = 0;$i<count($AbilityData);$i++)
+                        {{--  @for($i = 0;$i<count($AbilityData);$i++)
                             <tr>
                                 <th class='text-center' colspan='5'>{{ $AbilityData[$i]['ExamContent'] }}</th>
                                 <th class='text-center' colspan='1'>{{ (int)($AbilityData[$i]['AnswerRate']*100).'%' }}</th>
                                 <th class='text-center' colspan='1'>{{ (int)($AbilityData[$i]['AnswerRate2']*100).'%' }}</th>
                             </tr>
-                        @endfor
+                        @endfor  --}}
                     </tbody>
                 </table>
             </div>

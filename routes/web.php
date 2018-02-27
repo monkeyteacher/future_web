@@ -50,9 +50,14 @@ Route::get('BaseQualitiesAnalysis',[
     'uses'=>'BaseQualitiesAnalysisContorller@index'
 ]);
 
-Route::get('getAbilityData/{AbilityID}',[
+Route::post('getAbilityData',[
     'as'=>'getAbilityData',
     'uses'=>'BaseQualitiesAnalysisContorller@getAbilityData'
+]);
+
+Route::get('getBaseQulitiesChart',[
+    'as'=>'getBaseQulitiesChart',
+    'uses'=>'BaseQualitiesAnalysisContorller@getBaseQulitiesChart'
 ]);
 
 

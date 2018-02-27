@@ -97,4 +97,30 @@ class BaseQualitiesAnalysisData{
         ->get();
         return $getAbilityData;
     }
+
+    public function getBaseQulitiesChart(){
+        $ExamHistoryA = DB::raw('(
+            SELECT ExamID
+                ,COUNT(*) as num
+                ,Sum(IsCorrect) as Correct
+            FROM PBLServerDB.dbo.ExamHistory
+            group by ExamID
+            ) as ExamHistoryA ');
+
+        $BaseQulitiesChart = BaseQualities::leftjoin('QualityAbilities','BaseQualities.BaseID','=','QualityAbilities.BaseID')
+        ->leftjoin('Exams','Exams.AbilityID','=','QualityAbilities.AbilityID')
+        ->leftjoin($ExamHistoryA,
+            function($join){
+                $join->on('Exams.ExamID','=','ExamHistoryA.ExamID');
+            }
+        )
+        ->groupBy('BaseQualities.BaseID','BaseQualities.BaseName')
+        ->select(DB::raw("
+        BaseQualities.BaseID
+        ,BaseQualities.BaseName
+        ,CAST(Sum(ExamHistoryA.Correct) AS float)/Sum(ExamHistoryA.num) as AnswerRate
+        "))->get();
+        return $BaseQulitiesChart;
+    }
+
 }

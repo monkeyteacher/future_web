@@ -26,7 +26,7 @@
                     <td colspan="5" class="text-center">{{ $data[$i]['BaseName'] }}</td>
                     <td colspan="3" class="text-right"><a id='{{ $data[$i]['BaseID'] }}' class="BaseQuality_btn">[列出素養能力]</a></td>
                 </tr>
-                <tbody id="BaseQuality{{ $data[$i]['BaseID'] }}">
+                <tbody id="BaseQuality{{ $data[$i]['BaseID'] }}" class="BaseQualityArea">
                     <tr>
                         <th rowspan="4"></th>
                         <th class="text-center" colspan="2">素養能力</th>
@@ -41,7 +41,7 @@
                             <td class="text-center" colspan="1">{{ $data[$i]['QualityAbilitiesData'][$j]['num'] }}</td>
                             <td class="text-center" colspan="2">{{ (int)($data[$i]['QualityAbilitiesData'][$j]['AnswerRate']*100).'%' }}</td>
                             <td class="text-center" colspan="2">{{ (int)($data[$i]['QualityAbilitiesData'][$j]['AnswerRate2']*100).'%' }}</td>
-                            <td class="text-right" colspan="1"><a href="{{ route('getAbilityData',['AbilityID'=>$data[$i]['QualityAbilitiesData'][$j]['AbilityID']]) }}" >列出詳細</a></td>
+                            <td class="text-right" colspan="1"><a class="getAbilityData" data-AbilityID="{{ $data[$i]['QualityAbilitiesData'][$j]['AbilityID'] }}" >列出詳細</a></td>
                         </tr>
                     @endfor
                 </tbody>
@@ -59,12 +59,15 @@
     </div>
 </div>
 
-@if(count($AbilityData))
-    @include('partials.AbilityDataMessage')
-@endif
+@include('partials.AbilityDataMessage')
+
+{{--  @if(count($AbilityData))
+    
+@endif  --}}
 
 <script>
     $(document).ready(function () {
+        init();
         $('.message_close').click(function(){
             $('#myModal').hide();
         });
@@ -72,7 +75,105 @@
             var BaseID = $(this).attr('id');
             $('#BaseQuality'+BaseID).toggle();
         });
+        $('.getAbilityData').click(function(){
+            var AbilityID = $(this).attr('data-AbilityID');
+            getAbilityData(AbilityID);
+        });
     });    
+
+    function init(){
+        $('.BaseQualityArea').hide();
+        $('#myModal').hide();
+        getBaseQulitiesChart();
+    }
+
+    function getAbilityData(AbilityID){
+        $.ajax({
+            url: "{{ route('getAbilityData') }}",
+            dataType: "JSON",
+            method: "POST",
+            data: {
+                    AbilityID: AbilityID,
+                    _token:'{{ csrf_token() }}',
+                },
+            success: function(data) {
+                //console.log(data); 
+                setAbilityData(data);
+            },
+            error: function(jqXHR) {
+                alert("發生錯誤: " + jqXHR.status);
+            }
+        });
+    }
+
+    function getBaseQulitiesChart(){
+        $.ajax({
+            url: "{{ route('getBaseQulitiesChart') }}",
+            dataType: "JSON",
+            method: "GET",
+            success: function(data) {
+                console.log(data); 
+                setBaseQulitiesChart(data)
+            },
+            error: function(jqXHR) {
+                alert("發生錯誤: " + jqXHR.status);
+            }
+        });
+    }
+
+    function setAbilityData(data){
+        var string = '';
+        for(var i=0;i<data.length;i++){
+            var AnswerRate = parseInt(data[i]['AnswerRate']*100)+'%';
+            var AnswerRate2 = parseInt(data[i]['AnswerRate2']*100)+'%';
+            string = string + "<tr>\
+                                <th class='text-center' colspan='5'>"+data[i]['ExamContent']+"</th>\
+                                <th class='text-center' colspan='1'>"+AnswerRate+"</th>\
+                                <th class='text-center' colspan='1'>"+AnswerRate2+"</th>\
+                            </tr>";
+        }
+        $('#ExamHistory').html(string);
+        $('#myModal').show();
+        //console.log(string);
+    }
+
+    function setBaseQulitiesChart(data){
+        var labels = new Array();
+        var ChartData = new Array();
+        var color_Array = new Array();
+        for(var i=0;i<data.length;i++){
+            labels[i] = data[i]['BaseName'];
+            ChartData[i] = data[i]['AnswerRate'];
+            if (data[i]['AnswerRate'] < 50) {
+                color_Array[i] = "rgba(255,0,0,0.7)";
+            } else {
+                color_Array[i] = "rgba(151,187,205,0.5)";
+            }
+        }
+        var barChartData = {
+            labels: labels,
+            datasets: [{
+                fillColor: color_Array,
+                data: ChartData,
+            }]
+        }
+        var bar = $("#my_chart").get(0).getContext("2d");
+        myChartBar = new Chart(bar).Bar(barChartData, {
+            responsive: true, 
+            barValueSpacing: 80,
+            scales: {
+                yAxes: [{
+                    display: true,
+                    ticks: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }]
+            },
+        });
+    }
+
+
 </script>
 
 @stop
