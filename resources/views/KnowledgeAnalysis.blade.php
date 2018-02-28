@@ -53,7 +53,7 @@
                         <th class="text-center">{{ $data['KnowledgeData'][$i]['MemberID'] }}</th>
                         <th class="text-center">{{ $data['KnowledgeData'][$i]['Name'] }}</th>
                         <th class="text-center">{{ $data['KnowledgeData'][$i]['round'] }}</th>
-                        <th class="text-center">{{ $data['KnowledgeData'][$i]['isClear'] }}</th>
+                        <th class="text-center">{{ $data['KnowledgeData'][$i]['isClear']?'成功':'未成功' }}</th>
                         <th class="text-center">{{ date('Y-m-d H:i:s',strtotime(str_replace('-','/', $data['KnowledgeData'][$i]['Time']))) }}</th>
                         <th class="text-center"><a href="{{ route('getStudentData',['KnowID'=>$data['KnowledgeData'][$i]['KnowID'],'MemberID'=>$data['KnowledgeData'][$i]['MemberID']]) }}">[查看詳細分析]</a></th>
                     </tr>
