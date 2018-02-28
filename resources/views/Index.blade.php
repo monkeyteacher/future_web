@@ -74,7 +74,7 @@
                             <td>{{ $data['Knowledges'][$i]['completedNum'] }}</td>
                             <td>{{ $data['Knowledges'][$i]['participateNum'] }}</td>
                             <td>{{ (int)($data['Knowledges'][$i]['CompletionRate']*100).'%' }}</td>
-                            <td colspan='3' class='text-right'><a href='#'>[查看詳細分析]</a></td>
+                            <td colspan='3' class='text-right'><a href='{{ route('KnowledgeAnalysis',['KnowID'=>$data['Knowledges'][$i]['KnowID']]) }}'>[查看詳細分析]</a></td>
                         </tr>
                     @endfor
                 </tbody>
