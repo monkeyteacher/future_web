@@ -12,8 +12,19 @@
 */
 
 Route::get('/', function () {
-    return view('KnowledgeAnalysis');
+    return view('Login');
 });
+
+
+Route::get('Login',[
+    'as'=>'Login',
+    'uses'=>'LoginController@index'
+]);
+
+Route::post('PostLogin',[
+    'as'=>'PostLogin',
+    'uses'=>'LoginController@PostLogin'
+]);
 
 Route::get('test/{KnowID?}',[
     'as'=>'test',
