@@ -20,6 +20,7 @@
                         <li><a href="{{ route('BaseQualitiesAnalysis') }}">基本素養分析</a></li>
                     </ul>
                 </li>
+                <li><a href="{{ route('Logout') }}">登出</a></li>
             </ul>
         </div>
     </div>

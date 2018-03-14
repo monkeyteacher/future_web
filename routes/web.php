@@ -21,6 +21,11 @@ Route::get('Login',[
     'uses'=>'LoginController@index'
 ]);
 
+Route::get('Logout',[
+    'as'=>'Logout',
+    'uses'=>'LoginController@Logout'
+]);
+
 Route::post('PostLogin',[
     'as'=>'PostLogin',
     'uses'=>'LoginController@PostLogin'

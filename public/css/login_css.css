@@ -1,0 +1,8 @@
+.LoginMessage{
+	display: block;
+	opacity: 1;
+	overflow: visible;
+}
+.LoginMessageText{
+	font-size: 20px;
+}

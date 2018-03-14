@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>未來學網站登入系統</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/login_css.css') }}" rel="stylesheet">
     <style>
         body{
             background-color: rgb(78, 80, 94);
@@ -37,7 +38,7 @@
         <div class="panel panel-default" id="login_panel">
             <div class="panel-heading login_title">登入</div>
             <div class="panel-body">      
-                <form class="form-horizontal" method="POST" id="Login_form" action="http://163.13.127.72:1202">
+            <form class="form-horizontal" method="POST" id="Login_form" action="{{ route('PostLogin') }}">
                     {{--  <input type="hidden" name="_token" value="{{ csrf_token() }}">  --}}
                     <div class="form-group">
                         <label for="inputStuID" class="col-md-2 control-label login_text">信箱</label>
@@ -69,6 +70,11 @@
             </div>
         </div>
     </div>
+    
+    @if(isset($message))
+        @include('partials.loginMessage');
+    @endif
+
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <script>
@@ -98,6 +104,11 @@
                     $("#Login_form").submit();
                 }
             });
+
+            $('.message_close').click(function(){
+                $('#myModal').hide();
+            });
+
         })
         function init(){
             var StuID = $.cookie('user_StuID');
