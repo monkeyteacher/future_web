@@ -15,6 +15,9 @@ Route::get('/', function () {
     return view('Login');
 });
 
+Route::get('excel/export','ExcelController@export');
+Route::get('excel/import','ExcelController@import');
+
 
 Route::get('Login',[
     'as'=>'Login',
@@ -29,11 +32,6 @@ Route::get('Logout',[
 Route::post('PostLogin',[
     'as'=>'PostLogin',
     'uses'=>'LoginController@PostLogin'
-]);
-
-Route::get('test/{KnowID?}',[
-    'as'=>'test',
-    'uses'=>'KnowledgeAnalysisController@test'
 ]);
 
 Route::get('MainHome/{CourseID?}/{StoreID?}',[
