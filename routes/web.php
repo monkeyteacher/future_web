@@ -11,35 +11,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('Login');
-});
+Route::get('/',[
+    'as'=>'Login',
+    'uses'=>'LoginController@index'
+]);
 
-Route::get('excel/export','ExcelController@export');
-Route::get('excel/import','ExcelController@import');
+// Route::get('excel/export','ExcelController@export');
+// Route::get('excel/import','ExcelController@import');
 
 Route::get('test',[
     'as'=>'test',
-    'uses'=>'ExcelController@test'
+    'uses'=>'LoginController@test'
 ]);
-
-
-
-Route::get('ImportExams',[
-    'as'=>'ImportExams',
-    'uses'=>'ExcelController@Index',
-]);
-
-Route::post('PostExcel',[
-    'as'=>'PostExcel',
-    'uses'=>'ExcelController@PostExcel',
-]);
-
-Route::Post('ExamsInsert',[
-    'as'=>'ExamsInsert',
-    'uses'=>'ExcelController@ExamsInsert'
-]);
-
 
 Route::get('Login',[
     'as'=>'Login',
@@ -59,6 +42,21 @@ Route::post('PostLogin',[
 Route::get('MainHome/{CourseID?}/{StoreID?}',[
     'as'=>'MainHome',
     'uses'=>'MainHomeController@index'
+]);
+
+Route::get('ImportExams',[
+    'as'=>'ImportExams',
+    'uses'=>'ExcelController@Index',
+]);
+
+Route::post('PostExcel',[
+    'as'=>'PostExcel',
+    'uses'=>'ExcelController@PostExcel',
+]);
+
+Route::Post('ExamsInsert',[
+    'as'=>'ExamsInsert',
+    'uses'=>'ExcelController@ExamsInsert'
 ]);
 
 Route::get('KnowledgeAnalysis/{KnowID?}',[

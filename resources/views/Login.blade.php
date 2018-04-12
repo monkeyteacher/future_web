@@ -53,6 +53,16 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="inputPassword" class="col-md-2 control-label login_text">課程</label>
+                        <div class="col-md-10">
+                            <select class="form-control" class="form-control login_text" name="CourseID">
+                                @for($i=0;$i<count($data);$i++)
+                                    <option value="{{ $data[$i]['CourseID'] }}">{{ $data[$i]['CourseName'] }}</option>
+                                @endfor
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
                             <div class="checkbox">
                                 <label class="login_text">

@@ -5,51 +5,54 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Log;
 use Session;
-use App\Model\Members;
+use App\Model\Courses;
+use App\Login\Login;
 
 class LoginController extends Controller
 {
     //
+    private $Lg;
+
+    public function __construct(Login $Lg){
+        $this->Lg = $Lg;
+    }
+
     public function index($message = null){
-        return view('Login',['message'=>$message]);
+        $Courses = Courses::all();
+        //return $Courses;
+        return view('Login',['message'=>$message,'data'=>$Courses]);
+    }
+
+    public function test(){
+        $data = $this->Lg->UserDataCheck('606410065',2);
+        return $data;
     }
 
     public function PostLogin(Request $Request){
         //驗證Mssql
         $userAccount = $Request->input('userAccount');
         $userPassword = $Request->input('userPassword');
-        $result = $this->LoginCheck($userAccount,$userPassword);
+        $CourseID = $Request->input('CourseID');
+        $result = $this->Lg->LoginCheck($userAccount,$userPassword);
         if($result =='password correct!'){
-            $Member = Members::where('MemberID',$userAccount)->get();
+            $Member = $this->Lg->UserDataCheck($userAccount,$CourseID);
             log::info($Member);
             if(count($Member)){
                 //ip位子不一樣
                 Session::put('userAccount', $Member[0]['MemberID']);
                 Session::put('status','STU');
                 Session::put('Email', $Member[0]['Email']);
-                $userAccount = Session::get('userAccount');
+                Session::put('CourseID', $Member[0]['CourseID']);
+                // $userAccount = Session::get('userAccount');
                 Log::info('登入成功:'.$userAccount);
                 return redirect()->route('MainHome');
             }else{
                 //判別是否老師
                 Session::put('status','TA');
-                return $this->index('登入成功，但無紀錄');
+                return $this->index('登入失敗，無修課紀錄');
             }
         }
-        else return '登入失敗';
-    }
-
-    public function LoginCheck($userAccount,$userPassword){
-        $url = "http://163.13.127.72:1202";
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(array("userAccount"=>$userAccount,"userPassword"=>$userPassword))); 
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-        $output = curl_exec($ch); 
-        curl_close($ch);
-        Log::info($output.':'.$userAccount);
-        return $output;
+        else return $this->index('帳號密碼錯誤');
     }
 
     public function Logout(){
