@@ -6,16 +6,26 @@ use App\Model\ExamHistory;
 use DB;
 class BaseQualitiesAnalysisData{
 
-    public function getBaseQualitiesData(){
-        $BaseQualitiesData = BaseQualities::all();
+    public function getBaseQualitiesData($CourseID){
+        $BaseQualitiesData = BaseQualities::leftjoin('QualityAbilities','BaseQualities.BaseID','=','QualityAbilities.BaseID')
+        ->leftjoin('Exams','Exams.AbilityID','=','QualityAbilities.AbilityID')
+        ->leftjoin('Knowledges','Exams.KnowID','Knowledges.KnowID')
+        ->leftjoin('Stories','Stories.StoryID','Knowledges.StoryID')
+        ->where('CourseID',$CourseID)
+        ->groupBy('BaseQualities.BaseID'
+            ,'BaseQualities.BaseName')
+        ->select('BaseQualities.BaseID'
+            ,'BaseQualities.BaseName')
+        ->get();
+        //return $BaseQualitiesData;
         for($i = 0; $i<count($BaseQualitiesData);$i++){
-            $BaseQualitiesData[$i]['QualityAbilitiesData'] = $this->getQualityAbilitiesData($BaseQualitiesData[$i]['BaseID']);
+            $BaseQualitiesData[$i]['QualityAbilitiesData'] = $this->getQualityAbilitiesData($CourseID,$BaseQualitiesData[$i]['BaseID']);
         }
         return $BaseQualitiesData;
         
     }
 
-    public function getQualityAbilitiesData($BaseID){
+    public function getQualityAbilitiesData($CourseID,$BaseID){
         $ExamHistoryA = DB::raw('(
             SELECT ExamID
                 ,COUNT(*) as num
@@ -35,6 +45,8 @@ class BaseQualitiesAnalysisData{
 
         $QualityAbilitiesData = BaseQualities::leftjoin('QualityAbilities','BaseQualities.BaseID','=','QualityAbilities.BaseID')
         ->leftjoin('Exams','Exams.AbilityID','=','QualityAbilities.AbilityID')
+        ->leftjoin('Knowledges','Exams.KnowID','Knowledges.KnowID')
+        ->leftjoin('Stories','Stories.StoryID','Knowledges.StoryID')
         ->leftjoin($ExamHistoryA,
             function($join){
                 $join->on('Exams.ExamID','=','ExamHistoryA.ExamID');
@@ -44,6 +56,7 @@ class BaseQualitiesAnalysisData{
                 $join->on('Exams.ExamID','=','ExamHistoryB.ExamID');
             })
         ->where('BaseQualities.BaseID',$BaseID)
+        ->where('CourseID',$CourseID)
         ->groupBy('BaseQualities.BaseID'
             ,'BaseQualities.BaseName'
             ,'QualityAbilities.AbilityID'
@@ -98,7 +111,7 @@ class BaseQualitiesAnalysisData{
         return $getAbilityData;
     }
 
-    public function getBaseQulitiesChart(){
+    public function getBaseQulitiesChart($CourseID){
         $ExamHistoryA = DB::raw('(
             SELECT ExamID
                 ,COUNT(*) as num
@@ -109,6 +122,9 @@ class BaseQualitiesAnalysisData{
 
         $BaseQulitiesChart = BaseQualities::leftjoin('QualityAbilities','BaseQualities.BaseID','=','QualityAbilities.BaseID')
         ->leftjoin('Exams','Exams.AbilityID','=','QualityAbilities.AbilityID')
+        ->leftjoin('Knowledges','Exams.KnowID','Knowledges.KnowID')
+        ->leftjoin('Stories','Stories.StoryID','Knowledges.StoryID')
+        ->where('CourseID',$CourseID)
         ->leftjoin($ExamHistoryA,
             function($join){
                 $join->on('Exams.ExamID','=','ExamHistoryA.ExamID');

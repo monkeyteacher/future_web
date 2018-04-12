@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\DataCollation\BaseQualitiesAnalysisData;
-
+use Session;
 class BaseQualitiesAnalysisContorller extends Controller
 {
     //
@@ -15,12 +15,15 @@ class BaseQualitiesAnalysisContorller extends Controller
     }
 
     public function index(){
-        $BaseQualitiesData = $this->BQAD->getBaseQualitiesData();
+        $CourseID = Session::get('CourseID');
+        $BaseQualitiesData = $this->BQAD->getBaseQualitiesData($CourseID);
+        //return $BaseQualitiesData;
         return view('BaseQualitiesAnalysis',['data'=>$BaseQualitiesData]);
     }
 
     public function getBaseQulitiesChart(){
-        $BaseQualitiesChartData = $this->BQAD->getBaseQulitiesChart();
+        $CourseID = Session::get('CourseID');
+        $BaseQualitiesChartData = $this->BQAD->getBaseQulitiesChart($CourseID);
         return $BaseQualitiesChartData;
     }
 

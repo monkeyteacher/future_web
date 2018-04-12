@@ -28,7 +28,7 @@
                 </tr>
                 <tbody id="BaseQuality{{ $data[$i]['BaseID'] }}" class="BaseQualityArea">
                     <tr>
-                        <th rowspan="4"></th>
+                        <th rowspan="{{ count($data[$i]['QualityAbilitiesData'])+1 }}"></th>
                         <th class="text-center" colspan="2">素養能力</th>
                         <th class="text-center" colspan="1">考題數量</th>
                         <th class="text-center" colspan="2">平均第一次回答正確比率</th>
