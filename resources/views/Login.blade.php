@@ -98,11 +98,12 @@
             $('#btn_submit').click(function(event){
                 event.preventDefault();
                 var password = $('#inputPassword').val();
-                if (password.length < 9) {
-                    alert('PS:密碼長度必須大於9');
-                } else {
-                    $("#Login_form").submit();
-                }
+                $("#Login_form").submit();
+                // if (password.length < 9) {
+                //     alert('PS:密碼長度必須大於9');
+                // } else {
+                //     $("#Login_form").submit();
+                // }
             });
 
             $('.message_close').click(function(){
