@@ -12,7 +12,7 @@
         <div>
             <table id="stories" class="table table-bordered">
                 <tr>
-                    <th colspan='{{ count($data['Stories'])+3 }}'>課程列表</th>
+                    <th colspan='9'>課程列表</th>
                 </tr>
                 <tr>
                     <th rowspan='{{ count($data['Stories'])+3 }}'>{{ $data['Course'][0]['IsOpen']?'開放':'未開放' }}</th>
@@ -21,8 +21,7 @@
                     <th colspan='2'>學生課程參與次數</th>
                     <th>學生課程完成次數</th>
                     <th>完成率</th>
-                    <th><a href= '#'>[新增課程(導入題庫)]</a>
-                    </th>
+                    <th><a href= '#'>[新增課程(導入題庫)]</a></th>
                 </tr>
                 <tr>
                     <td>{{ $data['Course'][0]['CourseID'] }}</td>

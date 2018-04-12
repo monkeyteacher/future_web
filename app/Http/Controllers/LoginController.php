@@ -45,7 +45,7 @@ class LoginController extends Controller
                 Session::put('CourseID', $Member[0]['CourseID']);
                 // $userAccount = Session::get('userAccount');
                 Log::info('登入成功:'.$userAccount);
-                return redirect()->route('MainHome');
+                return redirect()->route('MainHome',['CourseID'=>$CourseID]);
             }else{
                 //判別是否老師
                 Session::put('status','TA');

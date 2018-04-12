@@ -5,8 +5,9 @@ use App\Model\Knowledges;
 use App\Model\Stories;
 use DB;
 class MainHomeData{
-    public function getKnowledgesData($StoreID){
+    public function getKnowledgesData($CourseID,$StoreID){
         $KnowledgesData = $this->CompletionRate()
+            ->where('CourseID',$CourseID)
             ->groupBy('Stories.StoryID','Knowledges.KnowID','KnowName','Knowledges.IsOpen')
             ->select(DB::raw("
                 Stories.StoryID

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Model\Stories;
 use App\Model\Knowledges;
 use App\DataCollation\MainHomeData;
+use Session;
 
 class MainHomeController extends Controller
 {
@@ -17,15 +18,16 @@ class MainHomeController extends Controller
     }
 
 
-    public function index($CourseID = null, $StoreID = null){
+    public function index($CourseID = 1, $StoreID = null){
+        // $CourseID = Session::get('CourseID');
 
         $Course = $this->MHD->getCourseData($CourseID);
 
         //取得所有章節
-        $Stories = Stories::orderBy('Priority')->get();
+        $Stories = Stories::where('CourseID',$CourseID)->orderBy('Priority')->get();
 
         //取得知識點(依照章節分)
-        $Knowledges = $this->MHD->getKnowledgesData($StoreID);
+        $Knowledges = $this->MHD->getKnowledgesData($CourseID,$StoreID);
 
         //取得目前章節名稱
         if($StoreID==null){
