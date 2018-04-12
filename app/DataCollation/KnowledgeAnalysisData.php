@@ -5,9 +5,21 @@ use App\Model\Knowledges;
 use App\Model\ExamHistory;
 use DB;
 class KnowledgeAnalysisData{
-    public function getKnowledgeData($KnowID){
+
+    public function getKnowledges($CourseID){
+        $Knowledges = Knowledges::leftjoin('Stories','Stories.StoryID','=','Knowledges.StoryID')
+        ->where('CourseID',$CourseID)
+        ->orderBy('KnowID')
+        ->select('KnowID','KnowName')
+        ->get();
+        return $Knowledges;
+    }
+    public function getKnowledgeData($CourseID,$KnowID){
         if($KnowID == null){
-            $KnowlegeArray = Knowledges::orderby('KnowID')->get();
+            $KnowlegeArray = Knowledges::leftjoin('Stories','Stories.StoryID','=','Knowledges.StoryID')
+            ->where('CourseID',$CourseID)
+            ->orderby('KnowID')
+            ->get();
             $KnowID = $KnowlegeArray[0]['KnowID'];
         }
 

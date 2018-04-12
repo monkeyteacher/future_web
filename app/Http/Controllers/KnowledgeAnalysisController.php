@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Model\Knowledges;
 use App\DataCollation\KnowledgeAnalysisData;
-
+use Session;
 
 class KnowledgeAnalysisController extends Controller
 {
@@ -17,9 +17,11 @@ class KnowledgeAnalysisController extends Controller
     }
 
     public function index($KnowID = null,$StudentData = null,$ExamsData = null){
-        $Knowledges = Knowledges::orderBy('KnowID')->select('KnowID','KnowName')->get();
+        $CourseID = Session::get('CourseID');
 
-        $KnowledgeData = $this->KAD->getKnowledgeData($KnowID);
+        $Knowledges = $this->KAD->getKnowledges($CourseID);
+
+        $KnowledgeData = $this->KAD->getKnowledgeData($CourseID,$KnowID);
 
         $data = array('Knowledges'=>$Knowledges,'KnowledgeData'=>$KnowledgeData,'StudentData'=>$StudentData,'ExamsData'=>$ExamsData);
         //return $data;

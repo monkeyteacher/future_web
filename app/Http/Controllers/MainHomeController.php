@@ -19,7 +19,7 @@ class MainHomeController extends Controller
 
 
     public function index($CourseID = 1, $StoreID = null){
-        // $CourseID = Session::get('CourseID');
+        $CourseID = Session::get('CourseID');
 
         $Course = $this->MHD->getCourseData($CourseID);
 

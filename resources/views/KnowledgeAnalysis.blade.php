@@ -18,8 +18,9 @@
                     @for($i=0;$i<count($data['Knowledges']);$i++)
                         @if($data['Knowledges'][$i]['KnowID'] == $data['KnowledgeData'][0]['KnowID'])
                         <option value="{{ $data['Knowledges'][$i]['KnowID'] }}" selected>{{ $data['Knowledges'][$i]['KnowName'] }}</option>
-                        @endif
+                        @else
                         <option value="{{ $data['Knowledges'][$i]['KnowID'] }}" >{{ $data['Knowledges'][$i]['KnowName'] }}</option>
+                        @endif
                     @endfor
                 </select>
                 <button type="submit" class="btn btn-default btn_sent text-center" style="bottom: 0; position: relative;">確認</button>
