@@ -41,7 +41,7 @@
             <form class="form-horizontal" method="POST" id="Login_form" action="{{ route('PostLogin') }}">
                     {{--  <input type="hidden" name="_token" value="{{ csrf_token() }}">  --}}
                     <div class="form-group">
-                        <label for="inputStuID" class="col-md-2 control-label login_text">信箱</label>
+                        <label for="inputStuID" class="col-md-2 control-label login_text">學號</label>
                         <div class="col-md-10">
                             <input type="text" class="form-control login_text" id="inputStuID" name="userAccount" placeholder="Student ID">
                         </div>
