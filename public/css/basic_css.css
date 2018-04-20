@@ -40,6 +40,12 @@ a:hover {
     background-color: #778899;
 }
 
+@media (max-width: 1300px){
+    .sidebar{
+        display: none;
+    }
+}
+
 .list_ul {
     padding-left: 0px;
 }
