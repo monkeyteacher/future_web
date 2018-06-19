@@ -44,7 +44,11 @@ class ExcelController extends Controller
         }catch(\Exception $e){
             $result = $e;
         }finally{
-            return $result;
+            if($result){
+                return $this->index();
+            }else{
+                return $result;
+            }
         }
     }
 
