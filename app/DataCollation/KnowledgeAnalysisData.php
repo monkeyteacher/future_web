@@ -55,6 +55,7 @@ class KnowledgeAnalysisData{
         ->where('ExamHistory.KnowID',$KnowID)
         ->where('ExamHistory.Round',$Round)
         ->select('ExamHistory.IsCorrect','Exams.ExamContent')
+        ->distinct()
         ->get();
         return $ExamsData;
     }
