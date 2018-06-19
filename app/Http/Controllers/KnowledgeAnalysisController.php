@@ -18,12 +18,17 @@ class KnowledgeAnalysisController extends Controller
 
     public function index($KnowID = null,$StudentData = null,$ExamsData = null){
         $CourseID = Session::get('CourseID');
-
+        $status = Session::get('status');
+        if($status == 'STU'){
+            $MemberID = Session::get('userAccount');
+        }else{
+            $MemberID = 'TA';
+        }
         $Knowledges = $this->KAD->getKnowledges($CourseID);
 
         $KnowledgeData = $this->KAD->getKnowledgeData($CourseID,$KnowID);
 
-        $data = array('Knowledges'=>$Knowledges,'KnowledgeData'=>$KnowledgeData,'StudentData'=>$StudentData,'ExamsData'=>$ExamsData);
+        $data = array('Knowledges'=>$Knowledges,'KnowledgeData'=>$KnowledgeData,'StudentData'=>$StudentData,'ExamsData'=>$ExamsData,'status'=>$status,'MemberID'=>$MemberID);
         //return $data;
         return view('KnowledgeAnalysis',['data'=>$data]);
     }

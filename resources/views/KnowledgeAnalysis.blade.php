@@ -49,15 +49,37 @@
             </thead>
             <tbody id="CountKnowledgeHistory">
                 @for($i=0;$i<count($data['KnowledgeData']); $i++)
-                    <tr>
-                        <th class="text-center">{{ $i+1 }}</th>
-                        <th class="text-center">{{ $data['KnowledgeData'][$i]['MemberID'] }}</th>
-                        <th class="text-center">{{ $data['KnowledgeData'][$i]['Name'] }}</th>
-                        <th class="text-center">{{ $data['KnowledgeData'][$i]['round'] }}</th>
-                        <th class="text-center">{{ $data['KnowledgeData'][$i]['isClear']?'成功':'未成功' }}</th>
-                        <th class="text-center">{{ date('Y-m-d H:i:s',strtotime(str_replace('-','/', $data['KnowledgeData'][$i]['Time']))) }}</th>
-                        <th class="text-center"><a href="{{ route('getStudentData',['KnowID'=>$data['KnowledgeData'][$i]['KnowID'],'MemberID'=>$data['KnowledgeData'][$i]['MemberID']]) }}">[查看詳細分析]</a></th>
-                    </tr>
+                    @if($data['status']=='STU'&&$data['KnowledgeData'][$i]['MemberID']==$data['MemberID'])
+                        <tr>
+                            <th class="text-center">{{ $i+1 }}</th>
+                            <th class="text-center">{{ $data['KnowledgeData'][$i]['MemberID'] }}</th>
+                            <th class="text-center">{{ $data['KnowledgeData'][$i]['Name'] }}</th>
+                            <th class="text-center">{{ $data['KnowledgeData'][$i]['round'] }}</th>
+                            <th class="text-center">{{ $data['KnowledgeData'][$i]['isClear']?'成功':'未成功' }}</th>
+                            <th class="text-center">{{ date('Y-m-d H:i:s',strtotime(str_replace('-','/', $data['KnowledgeData'][$i]['Time']))) }}</th>
+                            <th class="text-center"><a href="{{ route('getStudentData',['KnowID'=>$data['KnowledgeData'][$i]['KnowID'],'MemberID'=>$data['KnowledgeData'][$i]['MemberID']]) }}">[查看詳細分析]</a></th>
+                        </tr>
+                    @elseif($data['status']=='STU'&&$data['KnowledgeData'][$i]['MemberID']!=$data['MemberID'])
+                        <tr>
+                            <th class="text-center">{{ $i+1 }}</th>
+                            <th class="text-center">***</th>
+                            <th class="text-center">***</th>
+                            <th class="text-center">{{ $data['KnowledgeData'][$i]['round'] }}</th>
+                            <th class="text-center">{{ $data['KnowledgeData'][$i]['isClear']?'成功':'未成功' }}</th>
+                            <th class="text-center">{{ date('Y-m-d H:i:s',strtotime(str_replace('-','/', $data['KnowledgeData'][$i]['Time']))) }}</th>
+                            <th class="text-center"><a href="#"</th>
+                        </tr>
+                    @elseif($data['status']=='TA')
+                        <tr>
+                            <th class="text-center">{{ $i+1 }}</th>
+                            <th class="text-center">{{ $data['KnowledgeData'][$i]['MemberID'] }}</th>
+                            <th class="text-center">{{ $data['KnowledgeData'][$i]['Name'] }}</th>
+                            <th class="text-center">{{ $data['KnowledgeData'][$i]['round'] }}</th>
+                            <th class="text-center">{{ $data['KnowledgeData'][$i]['isClear']?'成功':'未成功' }}</th>
+                            <th class="text-center">{{ date('Y-m-d H:i:s',strtotime(str_replace('-','/', $data['KnowledgeData'][$i]['Time']))) }}</th>
+                            <th class="text-center"><a href="{{ route('getStudentData',['KnowID'=>$data['KnowledgeData'][$i]['KnowID'],'MemberID'=>$data['KnowledgeData'][$i]['MemberID']]) }}">[查看詳細分析]</a></th>
+                        </tr>
+                    @endif
                 @endfor
             </tbody>
         </table>

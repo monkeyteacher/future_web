@@ -37,7 +37,7 @@ class LoginController extends Controller
         if($result =='password correct!'){
             $Member = $this->Lg->UserDataCheck($userAccount,$CourseID);
             log::info($Member);
-            if(count($Member)){
+            if(count($Member)&&strlen($userAccount)==9){
                 //ip位子不一樣
                 Session::put('userAccount', $Member[0]['MemberID']);
                 Session::put('status','STU');
@@ -48,8 +48,11 @@ class LoginController extends Controller
                 return redirect()->route('MainHome',['CourseID'=>$CourseID]);
             }else{
                 //判別是否老師
+                Session::put('userAccount', $userAccount);
                 Session::put('status','TA');
-                return $this->index('登入失敗，無修課紀錄');
+                Session::put('CourseID', $CourseID);
+                Log::info('登入成功:'.$userAccount);
+                return redirect()->route('MainHome',['CourseID'=>$CourseID]);
             }
         }
         else return $this->index('帳號密碼錯誤');
