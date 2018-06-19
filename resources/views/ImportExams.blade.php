@@ -42,11 +42,11 @@
                     </tr>
                     @for($i=0;$i<count($ExcelContent['KnowNodes']);$i++)
                         <tr>
-                            <td>{{ is_string($ExcelContent['KnowNodes'][$i]['編號'])?$ExcelContent['KnowNodes'][$i]['編號']:'資料格式錯誤' }}</td>
-                            <td>{{ is_string($ExcelContent['KnowNodes'][$i]['知識主題'])?$ExcelContent['KnowNodes'][$i]['知識主題']:'資料格式錯誤' }}</td>
-                            <td>{{ is_string($ExcelContent['KnowNodes'][$i]['主題簡述'])?$ExcelContent['KnowNodes'][$i]['主題簡述']:'資料格式錯誤' }}</td>
-                            <td>{{ is_string($ExcelContent['KnowNodes'][$i]['資料提供'])?$ExcelContent['KnowNodes'][$i]['資料提供']:'資料格式錯誤' }}</td>
-                            <td>{{ is_string($ExcelContent['KnowNodes'][$i]['對應題號'])?$ExcelContent['KnowNodes'][$i]['對應題號']:'資料格式錯誤' }}</td>
+                            <td>{{ !is_null($ExcelContent['KnowNodes'][$i]['編號'])?$ExcelContent['KnowNodes'][$i]['編號']:'資料格式錯誤' }}</td>
+                            <td>{{ !is_null($ExcelContent['KnowNodes'][$i]['知識主題'])?$ExcelContent['KnowNodes'][$i]['知識主題']:'資料格式錯誤' }}</td>
+                            <td>{{ !is_null($ExcelContent['KnowNodes'][$i]['主題簡述'])?$ExcelContent['KnowNodes'][$i]['主題簡述']:'資料格式錯誤' }}</td>
+                            <td>{{ !is_null($ExcelContent['KnowNodes'][$i]['資料提供'])?$ExcelContent['KnowNodes'][$i]['資料提供']:'資料格式錯誤' }}</td>
+                            <td>{{ !is_null($ExcelContent['KnowNodes'][$i]['對應題號'])?$ExcelContent['KnowNodes'][$i]['對應題號']:'資料格式錯誤' }}</td>
                         </tr>
                     @endfor
                 </table>
