@@ -78,7 +78,7 @@ class ExcelExamsImport{
             if($ExamsContent[$i]['題目']==null &&!is_null($ExamsContent[$i]['選答'])){
                 $results[$ExamsNum]['ExamAnswers'] = $results[$ExamsNum]['ExamAnswers'].','.$ExamsContent[$i]['選答'];
             }
-            if($ExamsContent[$i]['正確答案'] == "P"){
+            if(!is_null($ExamsContent[$i]['正確答案'])){
                 $results[$ExamsNum]['TrueAnswer'] = $TrueAnswer;
             }
             $TrueAnswer++;
