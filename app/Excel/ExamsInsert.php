@@ -22,7 +22,7 @@ class ExamsInsert{
             $AbilityID = $this->getAbilityID($BaseID,$ExcelContent['Exams'][$i]['AbilityName']);
             $ExamID = $this->setExams($KnowID,$AbilityID,$ExcelContent['Exams'][$i]);
         }
-        return $KnowArray;
+        return true;
     }
 
     public function getStroy($StoryName){
@@ -30,7 +30,7 @@ class ExamsInsert{
         if(count($Story)==null){
             $NowDate = date("Y-m-d");
             $Story = new Stories();
-            $Story->CourseID = 2;
+            $Story->CourseID = 4;
             $Story->StoryName = $StoryName;
             $Story->IsOpen = 1;
             $Story->Priority = 1;

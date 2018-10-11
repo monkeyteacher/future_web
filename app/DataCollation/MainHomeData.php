@@ -14,8 +14,8 @@ class MainHomeData{
                 ,Knowledges.IsOpen
                 ,Knowledges.KnowID
                 ,Knowledges.KnowName
-                ,Count(KH.Clear) as 'completedNum'
-                ,Sum(KH.Clear) as 'participateNum'
+                ,Count(KH.Clear) as 'participateNum'
+                ,Sum(KH.Clear) as 'completedNum'
                 ,(CAST(Sum(KH.Clear)AS float)/Count(KH.Clear)) as 'CompletionRate'
                 "));
 
@@ -34,8 +34,8 @@ class MainHomeData{
                 Courses.CourseID
                 ,Courses.CourseName
                 ,Courses.IsOpen
-                ,Count(KH.Clear) as 'completedNum'
-                ,Sum(KH.Clear) as 'participateNum'
+                ,Count(KH.Clear) as 'participateNum'
+                ,Sum(KH.Clear) as 'completedNum'
                 ,(CAST(Sum(KH.Clear)AS float)/Count(KH.Clear)) as 'CompletionRate'
                 "));
 
